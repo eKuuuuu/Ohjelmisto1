@@ -17,7 +17,7 @@ def maakoodi(nimi):
     tulos = kursori.fetchall()
     if kursori.rowcount > 0 :
         for rivi in tulos:
-            print(f"Maan {nimi} iso_country koodi on {rivi[0]} ja maa sijaitsee {rivi[1]}:ssa")
+            print(f"Maan {nimi} iso_country koodi on {rivi[0]} ja maa sijaitsee __:ssa")## __ = {rivi[1]}
 
 maa = input("Anna maan nimi mistä olet kiinnostunut: ")
 maakoodi(maa)

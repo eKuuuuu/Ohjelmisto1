@@ -1,5 +1,3 @@
-from turtledemo.sorting_animate import isort
-
 import mysql.connector
 
 def maakoodi(syote):

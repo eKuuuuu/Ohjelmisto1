@@ -12,7 +12,7 @@ def connect_to_database():
         autocommit=True
     )
 
-# Function to fetch the latitude and longitude of an airport by ICAO code
+# Function to get the latitude and longitude of an airport by ICAO code
 def a_b_distance(icao):
     sql = f"SELECT latitude_deg, longitude_deg FROM airport WHERE ident = %s"
     cursor.execute(sql, (icao,))
@@ -23,7 +23,7 @@ def a_b_distance(icao):
     else:
         return None
 
-# Fetch nearby airports based on distance from the current location
+# Get nearby airports based on distance from the current location
 def get_nearby_airports(current_location_icao):
     current_coords = a_b_distance(current_location_icao)
 
@@ -48,11 +48,11 @@ def get_nearby_airports(current_location_icao):
             dist = distance.distance(current_coords, airport_coords).km
             airport_distances.append((airport_icao, airport_name, dist))
 
-    # Sort by distance and return the 5 closest airports
+    # Sort by distance and return the 10 closest airports
     airport_distances.sort(key=lambda x: x[2])
     return airport_distances[:10]
 
-# Fetch goal data
+# Get goal data
 def get_goals():
     query = "SELECT id, name, description FROM goal"
     cursor.execute(query)
@@ -66,7 +66,7 @@ def play_game():
 
     icao = input("Give ICAO code (e.g., EFHK for Helsinki Vantaa): ").upper()
 
-    # Fetch the airport using the ICAO code
+    # Get the airport using the ICAO code
     cursor.execute("SELECT ident, name FROM airport WHERE ident = %s", (icao,))
     start_airport = cursor.fetchone()
 
@@ -104,6 +104,7 @@ def play_game():
         choice = input("\nChoose an airport number to fly to (or type 'status' to check status): ")
 
         if choice.lower() == 'status':
+            # Always print the status
             print(f"\nCurrent Location: {current_location_name} ({current_location_icao})")
             print(f"Flights Remaining: {flights_remaining}")
             print("Goals Completed:", len(completed_goals))
@@ -124,6 +125,7 @@ def play_game():
             # Check if any goals are completed
             for goal in goals:
                 if goal[0] not in completed_goals:
+                    print(f"Goal '{goal[1]}' completed!")
                     completed_goals.append(goal[0])
 
         except ValueError:

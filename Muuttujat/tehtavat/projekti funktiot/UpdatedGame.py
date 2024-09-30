@@ -1,3 +1,5 @@
+### This is the most maintained edition of the game 30.09.2024
+
 from geopy import distance
 import mysql.connector
 
